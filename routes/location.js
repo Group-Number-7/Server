@@ -8,46 +8,71 @@ router.get('/', (req, res)=> {
     res.send({ok: "location"})
 })
 
-router.get('/:lat/:lon', (req, res)=> {
-    const {lat, lon} = req.params
+router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
+    const {lat, lon, spawn} = req.params
 
     const center = {
         latitude: lat,
         longitude: lon
       }
-    const radius = 80 // meters
+    const radius = 70 // meters
 
     //console.log(Math.floor(randomLocation.distance(P1, P2)) === 4098)
-    let enemies = Enemy.find();
-    if(enemies.length){
-        enemies.reduce((pv, cv, ci)=>{
-            console.log("test", cv.location);
-            pv.push(cv.location)
-            return pv;
-        }, [])
-        res.send(enemies).end();
-    }
-    else {
-        console.log("new enemy")
-        Enemy.create({
-            name:"test",
-            stats:{ 
-                hp:100,
-                def:100,
-                res: 100,
-                attack:100,
-                magic:100
-            },
-            location: randomLocation.randomCirclePoint(center, radius)
-        })
-    }
-
-    var randomPoints = []
-    for(var i = 0; i < 10; i++){
-       randomPoints.push(randomLocation.randomCirclePoint(center, radius))
-    } 
-
-    res.send(randomPoints)
+    Enemy.find().then((enemies)=>{
+        let enemyRes = []
+        if(enemies.length){
+            console.log("enemies exist")
+            enemyRes = enemies.reduce((pv, cv, ci)=>{
+                if(randomLocation.distance(cv.location, center) < radius)
+                    pv.push(cv)
+                return pv;
+            }, [])
+        } else{
+            console.log("no enemies, making" + String(spawn));
+            for(var i = 0; i < spawn; i++){
+                enemyRes.push(
+                    Enemy.create({
+                        name:"test",
+                        stats:{ 
+                            hp:100,
+                            def:100,
+                            res: 100,
+                            attack:100,
+                            magic:100
+                        },
+                        location: randomLocation.randomCirclePoint(center, radius)
+                    })
+                )
+            }
+            res.send(enemyRes);
+            next();
+        }
+        if(enemyRes.length >= spawn){
+            console.log("already " + String(spawn) + " amount")
+            res.send(enemyRes.slice(0,spawn));
+            next();
+        }
+        else {
+            while(enemyRes.length <= spawn){
+                console.log("new enemy", enemyRes.length);
+                enemyRes.push(
+                    Enemy.create({
+                        name:"test",
+                        stats:{ 
+                            hp:100,
+                            def:100,
+                            res: 100,
+                            attack:100,
+                            magic:100
+                        },
+                        location: randomLocation.randomCirclePoint(center, radius)
+                    })
+                )
+            }
+            res.send(enemyRes)
+            next();
+        }
+    });
 })
 
 module.exports = router;
