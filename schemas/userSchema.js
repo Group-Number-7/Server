@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Item = require('./itemSchema');
 
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -18,9 +19,13 @@ var UserSchema = new Schema({
   dateCreated:{
       type: Date,
       required: true
+  },
+  items: {
+    type: [Item],
+    required: false
   }
 });
 
 var User = mongoose.model('User', UserSchema);
 
-module.exports=Assignment;
+module.exports=User;
