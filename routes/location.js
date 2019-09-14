@@ -15,10 +15,10 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
         latitude: lat,
         longitude: lon
       }
-    const radius = 70 // meters
+    const radius = 60 // meters
 
     //console.log(Math.floor(randomLocation.distance(P1, P2)) === 4098)
-    Enemy.find().then((enemies)=>{
+    Enemy.find().then(async (enemies)=>{
         let enemyRes = []
         if(enemies.length){
             console.log("enemies exist")
@@ -53,20 +53,23 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
             next();
         }
         else {
+            let newEnemy = {}
             while(enemyRes.length <= spawn){
                 console.log("new enemy", enemyRes.length);
+                newEnemy = await Enemy.create({
+                    name:"test",
+                    stats:{ 
+                        hp:100,
+                        def:100,
+                        res: 100,
+                        attack:100,
+                        magic:100
+                    },
+                    location: randomLocation.randomCirclePoint(center, radius)
+                })
+                console.log("n", newEnemy)
                 enemyRes.push(
-                    Enemy.create({
-                        name:"test",
-                        stats:{ 
-                            hp:100,
-                            def:100,
-                            res: 100,
-                            attack:100,
-                            magic:100
-                        },
-                        location: randomLocation.randomCirclePoint(center, radius)
-                    })
+                    newEnemy
                 )
             }
             res.send(enemyRes)
