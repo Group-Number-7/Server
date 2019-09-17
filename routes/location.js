@@ -15,7 +15,7 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
         latitude: lat,
         longitude: lon
       }
-    const radius = 120 // meters
+    const radius = 80 // meters
 
     Enemy.find().then(async (enemies)=>{
         let enemyRes = []
