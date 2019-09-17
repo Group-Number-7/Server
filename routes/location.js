@@ -30,30 +30,11 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
                     pv.push(cv)
                 return pv;
             }, [])
-        } else{
-            for(var i = 0; i < spawn; i++){
-                enemyRes.push(
-                    Enemy.create({
-                        name:"test",
-                        stats:{ 
-                            hp:100,
-                            def:100,
-                            res: 100,
-                            attack:100,
-                            magic:100
-                        },
-                        location: randomLocation.randomCirclePoint(center, radius)
-                    })
-                )
-            }
-            res.send(enemyRes);
-            next();
         }
         if(enemyRes.length >= spawn){
             res.send(enemyRes.slice(0,spawn));
             next();
-        }
-        else {
+        } else{
             let newEnemy = {}
             while(enemyRes.length <= spawn){
                 newEnemy = await Enemy.create({
@@ -71,8 +52,6 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
                     newEnemy
                 )
             }
-            res.send(enemyRes)
-            next();
         }
     });
 })
