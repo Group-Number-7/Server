@@ -36,7 +36,7 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
             next();
         } else{
             let newEnemy = {}
-            while(enemyRes.length <= spawn){
+            while(enemyRes.length < spawn){
                 newEnemy = await Enemy.create({
                     name:"test",
                     stats:{ 
@@ -52,6 +52,8 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
                     newEnemy
                 )
             }
+            res.send(enemyRes.slice(0,spawn));
+            next();
         }
     });
 })
