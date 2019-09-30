@@ -7,17 +7,18 @@ var UserSchema = new Schema({
   userId: {
     type: ObjectId,
   },
+  email: {
+    type: String,
+    required: true
+  },
   username: {
       type: String,
       require: true
   },
-  password: {
-      type:String,
-      required:true
-  },
   dateCreated:{
       type: Date,
-      required: true
+      required: true,
+      default: new Date()
   },
   equipment: {
     type: [
@@ -27,7 +28,8 @@ var UserSchema = new Schema({
         quantity: Number
       }
     ],
-    required: false
+    required: false,
+    default: []
   },
   items: {
     type: [
@@ -36,7 +38,37 @@ var UserSchema = new Schema({
         level: Number,
         quantity: Number
       }
-    ]
+    ],
+    required: false,
+    default: []
+  },
+  level: {
+    type: Number,
+    default: 1,
+    required: true
+  },
+  experience: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  stats: {
+    type: {
+        hp: Number,
+        def: Number,
+        mana: Number,
+        magic: Number,
+        res: Number,
+        attack: Number
+    },
+    default: {
+        hp: 100,
+        def: 10,
+        mana: 100,
+        magic: 10,
+        res: 10,
+        attack: 10
+    }
   }
 });
 
