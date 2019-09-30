@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var Item = require('./itemSchema');
 
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -20,9 +19,24 @@ var UserSchema = new Schema({
       type: Date,
       required: true
   },
-  items: {
-    type: [Item],
+  equipment: {
+    type: [
+      {
+        equipmentId: ObjectId,
+        level: Number,
+        quantity: Number
+      }
+    ],
     required: false
+  },
+  items: {
+    type: [
+      {
+        itemId: ObjectId,
+        level: Number,
+        quantity: Number
+      }
+    ]
   }
 });
 
