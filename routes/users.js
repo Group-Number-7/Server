@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../schemas/userSchema');
 
-router.get('/:email', function(req, res, next) {
+router.get('/login/:email', function(req, res, next) {
   const { email } = req.params;
   User.findOne({
     email: email.trim().toLowerCase()
@@ -21,7 +21,6 @@ router.get('/:email', function(req, res, next) {
 
 router.post('/signup', (req, res) => {
   const { email, username } = req.body;
-  console.log(email, username)
   User.create({
     email: email.trim().toLowerCase(),
     username: username.trim().toLowerCase(),

@@ -1,0 +1,107 @@
+<html>
+
+<head>
+  <title>gpsrpg</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+</head>
+
+<body>
+  <div>
+      <jumbotron style="text-align: center">
+          <h1>Add New Item</h1>
+      </jumbotron>
+      <div class="container">
+        <form style="justify-content: center" method="post" action="">
+            <div class="form-group">
+                <label for="item-name">Item Name</label>
+                <input type="text" class="form-control" id="item-name" placeholder="new name" name="item_name">
+            </div>
+            <!-- stats -->
+                <div class="row" style="justify-content: space-between">
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-hp">HP</label>
+                        <input type="number" class="form-control" id="stat-hp" name="hp">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-mana">Mana</label>
+                        <input type="number" class="form-control" id="stat-mana" name="mana">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-attack">Attack</label>
+                        <input type="number" class="form-control" id="stat-attack" name="attack">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-def">Defense</label>
+                        <input type="number" class="form-control" id="stat-defense" name="defense">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-res">Resistance</label>
+                        <input type="number" class="form-control" id="stat-res" name="resistance">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-mag">Magic</label>
+                        <input type="number" class="form-control" id="stat-mag" name="magic">
+                    </div>
+            </div>
+            <!-- steps -->
+            <div class="row" style="justify-content: space-between">
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-hp-step">HP Step</label>
+                        <input type="number" class="form-control" id="stat-hp-step" name="hp_step">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-mana-step">Mana Step</label>
+                        <input type="number" class="form-control" id="stat-mana-step" name="mana_step">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-attack-step">Attack Step</label>
+                        <input type="number" class="form-control" id="stat-attack-step" name="attack_step">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-def-step">Defense Step</label>
+                        <input type="number" class="form-control" id="stat-defense-step" name="defense_step">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-res-step">Resistance Step</label>
+                        <input type="number" class="form-control" id="stat-res-step" name="resistance_step">
+                    </div>
+                    <div class="form-group" style="width:10rem">
+                        <label for="stat-mag-step">Magic Step</label>
+                        <input type="number" class="form-control" id="stat-mag-step" name="magic_step">
+                    </div>
+            </div>
+            <div class="row w-100" style="justify-content: space-around">
+                <div class="form-group" style="width:10rem">
+                    <label for="level-req">Required Level</label>
+                    <input type="number" class="form-control" id="level-req" name="level_req" value="1">
+                </div>
+                <div class="form-group" style="width:10rem">
+                    <label for="class-req">Required Class</label>
+                    <select class="form-control" id="class-req" name="class_req" value="Any">
+                            <option>Any</option>
+                            <option>Warrior</option>
+                            <option>Rogue</option>
+                            <option>Archer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row w-100" style="justify-content: center">
+                <div class="form-group">
+                    <label for="img-link">Link to Image</label>
+                    <input type="text" class="form-control" id="img-link" placeholder="link" name="link">
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="w-100" style="justify-content: center; display:flex">
+                <button type="submit" class="btn btn-primary w-50">Submit</button>
+            </div>
+        </form>
+      </div>
+  </div>
+</body>
+
+</html>

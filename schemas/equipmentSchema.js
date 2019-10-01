@@ -34,9 +34,13 @@ var EquipmentSchema = new Schema({
   classRequirement: {
       type: Number,
       required: false
+  },
+  image: {
+      type: String,
+      required: true
   }
 });
 
-var Equipment = mongoose.model('User', EquipmentSchema);
+var Equipment = mongoose.model('Equipment', EquipmentSchema);
 
-module.exports=Equipment;
+module.exports=Equipment;   
