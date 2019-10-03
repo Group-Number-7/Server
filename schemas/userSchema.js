@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-var ObjectId = mongoose.Schema.Types.ObjectId;
+var ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema({
   userId: {
@@ -21,26 +21,17 @@ var UserSchema = new Schema({
       default: new Date()
   },
   equipment: {
-    type: [
-      {
-        equipmentId: ObjectId,
-        level: Number,
-        quantity: Number
-      }
-    ],
+    type: [{type: ObjectId, ref: 'Equipment'}],
     required: false,
-    default: []
   },
   items: {
     type: [
       {
         itemId: ObjectId,
-        level: Number,
         quantity: Number
       }
     ],
     required: false,
-    default: []
   },
   level: {
     type: Number,

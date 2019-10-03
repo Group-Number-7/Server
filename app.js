@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var locationRouter = require('./routes/location');
 var battleRouter = require('./routes/battle');
+var equipmentRouter = require('./routes/equipment');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/location', locationRouter);
 app.use('/battle', battleRouter);
+app.use('/equipment', equipmentRouter);
 
 
 //Mongo Setup

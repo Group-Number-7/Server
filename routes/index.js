@@ -6,14 +6,15 @@ const Equipment = require('../schemas/equipmentSchema');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index.html', { title: 'Express' });
+  res.render('index.html', { title: "express"});
 });
 router.get('/new_item', function(req, res, next) {
-  res.render('views/main.ejs', { title: 'Express' });
+  res.render('views/main.ejs', {error: "Fill in all fields"} );
 });
 
 router.post('/new_item', [
   check('item_name').not().isEmpty(),
+  check('eq_type').not().isEmpty(),
   check('hp').not().isEmpty(),
   check('mana').not().isEmpty(),
   check('attack').not().isEmpty(),
@@ -29,17 +30,19 @@ router.post('/new_item', [
   check('level_req').not().isEmpty(),
   check('class_req').not().isEmpty(),
   check('link').not().isEmpty(),
-], function(req, res, next) {
-  
+], (req, res, next) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    res.render('views/main.ejs', {error: "Some fields were missing"} );
+    return
   }
   const {
-    item_name, hp, mana, attack, defense, resistance, magic, hp_step, mana_step, attack_step, defense_step, resistance_step, magic_step, level_req, class_req, link
+    item_name, eq_type, hp, mana, attack, defense, resistance, magic, hp_step, mana_step, attack_step, defense_step, resistance_step, magic_step, level_req, class_req, link
   } = req.body;
   Equipment.create({
     name: item_name,
+    type: eq_type,
     stats: {
       hp: hp,
       mana: mana,
@@ -59,8 +62,18 @@ router.post('/new_item', [
     levelRequirement: level_req,
     classRequirement: class_req,
     image: link
+  }).then((doc)=>{
+    res.send({
+      msg: "Success",
+      res: doc
+    })
+  }).catch((err)=>{
+    res.send({
+      msg: "Failure",
+      reason: err
+    })
   })
-  res.render('views/main.ejs', { title: 'Express' });
+
 });
 
 module.exports = router;

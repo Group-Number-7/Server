@@ -6,7 +6,7 @@ router.get('/login/:email', function(req, res, next) {
   const { email } = req.params;
   User.findOne({
     email: email.trim().toLowerCase()
-  }, (err, doc) => {
+  }).populate('equipment').exec((err, doc) => {
     if(!err){
       if(doc){
         res.send({user: doc, msg: "user found", status: 1})
@@ -16,8 +16,8 @@ router.get('/login/:email', function(req, res, next) {
     } else{
       res.send({msg: "error finding user", status: -1})
     }
-  })
-});
+  });
+})
 
 router.post('/signup', (req, res) => {
   const { email, username } = req.body;
