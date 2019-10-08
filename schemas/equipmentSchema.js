@@ -7,6 +7,10 @@ var EquipmentSchema = new Schema({
       type: String,
       required: true
   },
+  equipped: {
+      type: Boolean,
+      default: false
+  },
   type: {
       type: String,
       required: true
@@ -49,6 +53,9 @@ var EquipmentSchema = new Schema({
         mana:Number
     }
   },
+  totalStats: {
+      type: Number
+  },
   levelRequirement: {
       type: Number,
       required: false
@@ -70,14 +77,18 @@ EquipmentSchema.pre('save', function (next) {
         "rare": 1.25,
         "common": 1
     };
-    this.calcStats = {
+    const calcStats = {
         hp: this.stats["hp"]*ratings[this.rating] + (this.statStep["hp"] * this.level),
         def:this.stats["def"]*ratings[this.rating] + (this.statStep["def"] * this.level),
         res:this.stats["res"]*ratings[this.rating] + (this.statStep["res"] * this.level),
         attack:this.stats["attack"]*ratings[this.rating] + (this.statStep["attack"] * this.level),
         magic:this.stats["magic"]*ratings[this.rating] + (this.statStep["magic"] * this.level),
-        mana:this.stats["mana"]*ratings[this.rating] + (this.statStep["mana"] * this.level)
+        mana:this.stats["mana"]*ratings[this.rating] + (this.statStep["mana"] * this.level),
     }
+    this.calcStats = calcStats
+    this.totalStats = Object.keys(calcStats).reduce((prev, curr, i)=>{
+        return prev + calcStats[curr]
+    },0)
     next()
 })
 

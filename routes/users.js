@@ -6,7 +6,7 @@ router.get('/login/:email', function(req, res, next) {
   const { email } = req.params;
   User.findOne({
     email: email.trim().toLowerCase()
-  }).populate('equipment').exec((err, doc) => {
+  }).populate({path: "equipment", match: { equipped: true }}).exec((err, doc) => {
     if(!err){
       if(doc){
         res.send({user: doc, msg: "user found", status: 1})
