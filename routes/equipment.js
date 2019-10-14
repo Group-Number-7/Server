@@ -53,14 +53,14 @@ router.post('/new', (req, res) => {
 })
 
 router.put('/equip/:userId/:eqId', (req, res) => {
-    User.findById(req.params.userId).populate({path: "equipment", match: { equipped: true }}).then((user, err) => {
+    User.findById(req.params.userId).then((user, err) => {
         if(!err){
             if(user){
                 let i = user.equipment.findIndex((eq) => {
-                    eq._id === req.params.eqId
+                    eq === req.params.eqId
                     console.log("eq", eq);
                 })
-//                user.equipment[i] = req.params.eqId
+                user.equipment[i] = req.params.eqId
                 res.send({ok: true})
             } else {
                 console.log("user not found")
