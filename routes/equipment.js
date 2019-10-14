@@ -52,7 +52,7 @@ router.post('/new', (req, res) => {
     })
 })
 
-router.put('equip/:userId/:eqId', (req, res) => {
+router.put('/equip/:userId/:eqId', (req, res) => {
     User.findById(req.params.userId).populate({path: "equipment", match: { equipped: true }}).then((user, err) => {
         if(!err){
             if(user){
