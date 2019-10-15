@@ -25,14 +25,15 @@ var EnemySchema = new Schema({
       },
       required: true
   },
-  expireAt: {
-    type: Date,
+  createdAt: { 
     default: Date.now,
-    index: {expires: "1m"},
-  },
+    type: Date, 
+    index: {
+      expires: "1m",
+      unique: true
+    }
+  }
 });
-
-EnemySchema.index({createdAt: 1},{expires: "10s"});
 
 var Enemy = mongoose.model('Enemy', EnemySchema);
 
