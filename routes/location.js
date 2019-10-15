@@ -10,6 +10,7 @@ router.get('/', (req, res)=> {
 
 router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
     const {lat, lon, spawn} = req.params
+
     const center = {
         latitude: lat,
         longitude: lon

@@ -34,7 +34,7 @@ app.use('/equipment', equipmentRouter);
 //Mongo Setup
 var url = process.env.mongo_url
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: false })
   .catch( (err) => {
     console.log("mongo error", err);
   })
