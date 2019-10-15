@@ -68,6 +68,29 @@ module.exports = {
             levelRequirement: 1,
             classRequirement: "Any",
             image: "test"
+        },
+        master_sword: {
+            name: "Master Sword",
+            type: "weapon",
+            stats: {
+                hp:400,
+                def:400,
+                res:400,
+                attack:400,
+                magic:400,
+                mana:400
+            },
+            statStep: {
+                hp:50,
+                def:50,
+                res:50,
+                attack:50,
+                magic:50,
+                mana:50
+            },
+            levelRequirement: 1,
+            classRequirement: "Any",
+            image: "test"
         }
     }
 }

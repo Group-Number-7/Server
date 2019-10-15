@@ -37,7 +37,7 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
             let newEnemy = {}
             while(enemyRes.length < spawn){
                 newEnemy = await Enemy.create({
-                    name:"test",
+                    name:String(Math.random()),
                     stats:{ 
                         hp:100,
                         def:100,
@@ -45,7 +45,7 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
                         attack:100,
                         magic:100
                     },
-                    location: randomLocation.randomCirclePoint(center, radius)
+                    location: randomLocation.randomCirclePoint(center, radius),
                 })
                 enemyRes.push(
                     newEnemy

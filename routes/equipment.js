@@ -56,16 +56,18 @@ router.put('/equip/:userId/:eqId/:type', (req, res) => {
     User.findById(req.params.userId).populate({path: "equipment", match: { type: req.params.type }}).then((user, err) => {
         if(!err){
             if(user){
+                let res_eq = {}
                 user.equipment.map((eq, i) => {
-                    if(eq._id === req.params.eqId){
+                    if(eq._id == req.params.eqId){
                         eq.equipped = true;
-                    } else if(eq.type === req.params.type){
+                        res_eq = eq
+                        eq.save()
+                    } else if(eq.type === req.params.type && eq.equipped){
                         eq.equipped = false;
+                        eq.save()
                     }
                 })
-                user.save().then(()=>{
-                    res.send(user.equipment)
-                })
+                res.send(res_eq)
             } else {
                 console.log("user not found")
                 res.send([])
