@@ -63,6 +63,27 @@ module.exports = router;
  })
 
 
+ router.post('/level-up/:userid', function(req, res, next) {
+    const amount = req.amount;
+    User.findById(req.params.id).then((user)=>{
+        if(user){
+            user.level++
+            user.save();
+
+            
+
+        } else {
+//enemy not found
+        res.send(-1)
+        }
+    }, (err)=>{
+// error occured finding enemy
+    res.send(-1)
+    })
+ })
+
+
+
 
 
 
