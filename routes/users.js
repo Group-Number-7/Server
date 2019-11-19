@@ -31,7 +31,6 @@ router.post('/signup', (req, res) => {
     }
   }).catch((err)=>{
     res.send({msg: "error creating user", status: -1})
-    res.send({ok: false})
   })
 })
 

@@ -60,7 +60,7 @@ var UserSchema = new Schema({
         res: 10,
         attack: 10
     }
-  }
+  },
 });
 
 var User = mongoose.model('User', UserSchema);

@@ -20,6 +20,7 @@ router.get('/:userId', (req, res, next) => {
         }
     })
 })
+
 router.post('/new', (req, res) => {
     const { name, userId } = req.body
     User.findById(userId).populate('equipment').exec((err, user)=>{
