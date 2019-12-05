@@ -41,10 +41,10 @@ router.get('/enemies/:lat/:lon/:spawn', (req, res, next)=> {
                     name:String(Math.random()),
                     stats:{ 
                         hp:100,
-                        def:100,
-                        res: 100,
-                        attack:100,
-                        magic:100
+                        def:10,
+                        res: 10,
+                        attack:10,
+                        magic:10
                     },
                     location: randomLocation.randomCirclePoint(center, radius),
                 })
