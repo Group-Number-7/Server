@@ -9,30 +9,16 @@ router.get('/', (req, res)=> {
 
 module.exports = router;
 
- router.post('/attack/:id', function(req, res, next) {
-    const amount = req.amount;
-    Enemy.findById(req.params.id).then((enemy)=>{
-        if(enemy){
-           const newlife = enemy.stats.hp - amount
-            if(newlife <= 0 ) {
-                Enemy.findByIdAndDelete(req.params.id)
-                res.send(1)
-            }  else {
-                enemy.stats.hp = newlife
-                enemy.save();
-                res.send(0)
-
-
-            }
-
-        } else {
-//enemy not found
-        res.send(-1)
-        }
-    }, (err)=>{
-// error occured finding enemy
-    res.send(-1)
-    })
+ router.get('/kill/:id', async (req, res, next) => {
+     try{
+        await Enemy.findByIdAndDelete(req.params.id)
+        res.send({
+            exp: 100
+        })
+     } catch(err){
+         console.log('err', err)
+         res.send()
+     }
  })
 
 
@@ -40,25 +26,22 @@ module.exports = router;
     const amount = req.amount;
     User.findById(req.params.id).then((user)=>{
         if(user){
-           const newlife = user.stats.hp - amount
+           const newlife = amount >= 0 ? user.stats.hp - amount : user.stats.hp
             if(newlife <= 0 ) {
-                User.findByIdAndDelete(req.params.id)
-                res.send(1)
+                // User.findByIdAndDelete(req.params.id)
+                user.stats.hp = 
+                res.send({code: 1})
             }  else {
                 user.stats.hp = newlife
                 user.save();
-                res.send(0)
-
-
+                res.send({code: 0})
             }
-
         } else {
-//enemy not found
-        res.send(-1)
+            res.send({code: -1})
         }
     }, (err)=>{
 // error occured finding enemy
-    res.send(-1)
+    res.send({code: -1})
     })
  })
 

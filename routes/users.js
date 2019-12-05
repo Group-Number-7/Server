@@ -34,4 +34,16 @@ router.post('/signup', (req, res) => {
   })
 })
 
+router.post('/level/:id', async (req, res) => {
+  const { level, exp } = req.body
+  try{
+    await User.findByIdAndUpdate(req.params.id, { 
+      level: level, experience: exp
+    })
+    res.send({ok: true})
+  } catch(err){
+    res.send({ok: false})
+  }
+})
+
 module.exports = router;

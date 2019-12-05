@@ -61,6 +61,24 @@ var UserSchema = new Schema({
         attack: 10
     }
   },
+  currentStats: {
+    type: {
+      hp: Number,
+      def: Number,
+      mana: Number,
+      magic: Number,
+      res: Number,
+      attack: Number
+    },
+    default: {
+        hp: 100,
+        def: 10,
+        mana: 100,
+        magic: 10,
+        res: 10,
+        attack: 10
+    }
+  }
 });
 
 var User = mongoose.model('User', UserSchema);
